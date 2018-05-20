@@ -2,21 +2,23 @@ package com.company;
 
 import java.util.Stack;
 
-/**
- * Created by lukas on 06.05.2018.
- */
 public class QuickSort {
-    public static void quicksortRekurencyjny1(int[] A, int lo, int hi) {
-        if (lo < hi) {
-            int dp = partition1(A, lo, hi);
-            quicksortRekurencyjny1(A, lo, dp - 1);
-            quicksortRekurencyjny1(A, dp + 1, hi);
 
+    public static void quicksortRecursion1(int[] A, int lo, int hi) {
+        try {
+            if (lo < hi) {
+
+                int dp = partition1(A, lo, hi);
+                quicksortRecursion1(A, lo, dp - 1);
+                quicksortRecursion1(A, dp + 1, hi);
+            }
+        } catch (StackOverflowError e) {
+            System.out.println("stack");
         }
     }
 
     public static int partition1(int[] A, int lo, int hi) {
-        int pivot = A[lo];
+        int pivot = A[lo]; //element podziałowy
         int lastSmall = lo;
         for (int j = lo; j <= hi; j++) {
             if (A[j] < pivot) {
@@ -29,12 +31,16 @@ public class QuickSort {
         return lastSmall;
     }
 
-    public static void quicksortRekurencyjny2(int[] A, int lo, int hi) {
-        if (lo < hi) {
-            int dp = partition2(A, lo, hi);
-            quicksortRekurencyjny1(A, lo, dp);
-            quicksortRekurencyjny1(A, dp + 1, hi);
+    public static void quicksortRecursion2(int[] A, int lo, int hi) {
+        try {
+            if (lo < hi) {
 
+                int dp = partition2(A, lo, hi);
+                quicksortRecursion2(A, lo, dp);
+                quicksortRecursion2(A, dp + 1, hi);
+            }
+        } catch (StackOverflowError e) {
+            System.out.println("stack");
         }
     }
 
@@ -62,7 +68,7 @@ public class QuickSort {
         table[j] = temp;
     }
 
-    public static void quicksortIteracyjny(int[] A, int lo, int hi) {
+    public static int quicksortIteration(int[] A, int lo, int hi) {
         Stack st = new Stack();
         st.push(new Pair(lo, hi));
         int stackItems = 1, maxStackItems = 1;
@@ -85,9 +91,8 @@ public class QuickSort {
                 maxStackItems = stackItems;
             }
         }
-        System.out.println("Max na stosie: " + maxStackItems);
+        //System.out.println("Max na stosie: " + maxStackItems);
+        return maxStackItems;
     }
-
-
 
 }
